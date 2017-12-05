@@ -1,0 +1,32 @@
+# -*- coding:utf-8 -*-
+import gensim.models
+from gensim.models import Word2Vec
+
+class search_W2V:
+    def __init__(self): 
+        self.mod = gensim.models.KeyedVectors.load_word2vec_format('/home/wangy/QAsystem/word2vec/vector.bin',binary=True)
+    
+    def relation_list(self,list):
+        relist = []
+        for (rel,ans) in list:
+            print(rel, ans)
+            relist.append(rel)
+        return relist
+
+    def find_answer(self,list,requestion):
+        relist = self.relation_list(list)
+        max = 0
+        for ques in requestion :
+            for reword in relist:
+                tmp = mod.similarity(ques,reword)
+                if tmp > max:
+                    max = tmp
+                    ans_relation = reword
+        for (ans_re,ans) in list:
+            if ans_relation == ans_re:
+                return ans
+
+
+
+
+

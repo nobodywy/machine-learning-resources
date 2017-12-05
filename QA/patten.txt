@@ -1,0 +1,2 @@
+姚明是谁:Person
+夏威夷在哪:Location
