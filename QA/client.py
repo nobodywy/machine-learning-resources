@@ -5,6 +5,7 @@ import jieba.posseg as pseg
 from entity_extension import EntityExtension
 from knowledge_base import knowledge_base
 from search_W2V import search_W2V
+from question_type import questionType
 
 class Client:
     def get_knowledge(self, question):
@@ -33,6 +34,7 @@ if __name__ == '__main__':
     mid = EntityExtension()
     mid.load_alias()
     kb = knowledge_base()
+    questype = questionType()
     kb.load()
     sear = search_W2V()
     c = Client()
@@ -42,18 +44,12 @@ if __name__ == '__main__':
             question = input()
             if(question == -1):
                 break
-            pattenfile = open('patten.txt','rt',encoding='utf-8')
-            lines = pattenfile.readlines()
-            for line in lines:
-                line = line.strip()
-                words = line.split(':')
-                if question==words[0]:
-                    types=words[1]
-            pattenfile.close()
+            qtype = questype.get_type()
             #print(c.get_knowledge(question))
             list = c.get_knowledge(question)[1]
             requlist = c.get_pos(question)[1]
-            print(sear.find_answer(list,requlist,types))
+            requlist = questype.ques_type_list(requlist,qtype)
+            print(sear.find_answer(list,requlist))
         except Exception as e:
             print("exception",e,'\n')
             print('不知道~')

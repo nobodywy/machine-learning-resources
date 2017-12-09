@@ -16,7 +16,6 @@ class search_W2V:
     def find_answer(self,list,requestion,type):
         relist = self.relation_list(list)
         max = 0
-        requestion = Patten(requestion,type)
         #print(requestion)
         #print("list:",list,'\n')
         for ques in requestion :
